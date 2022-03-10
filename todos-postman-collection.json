@@ -11,7 +11,7 @@
       "url": "https://tc-todo-2022.herokuapp.com",
       "method": "POST",
       "headers": "",
-      "data": "{\n  \"title\": \"New TODO\",\n  \"completed\": false,\n}",
+      "data": "{\n  \"title\": \"New TODO\",\n  \"completed\": false\n}",
       "dataMode": "raw",
       "timestamp": 0,
       "responses": [],

@@ -15,9 +15,9 @@ const todos = [
 express()
   .use(express.text())
   .get("/", (req, res) => res.json(todos))
-  .get("/:postId", (req, res) =>
-    res.json(todos.filter((todo) => todo.id === req.params.postId)[0])
-  )
+  .get("/:postId", (req, res) => {
+    res.json(todos.filter((todo) => todo.id === req.params.postId)[0]);
+  })
   .post("/", (req, res) => {
     const newTodo = {
       id: uuidv4(),
