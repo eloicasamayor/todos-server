@@ -5,11 +5,11 @@ const PORT = process.env.PORT || 5001;
 const todos = [
   {
     id: "ad1a81f5-c327-47dd-9c6b-e6c63f47e4ff",
-    text: "Afegir un nou todo",
-    done: false,
+    title: "Afegir un nou todo",
+    completed: false,
   },
-  { id: uuidv4(), text: "Marcat un todo com done", done: false },
-  { id: uuidv4(), text: "Fer un servei de todos", done: true },
+  { id: uuidv4(), title: "Marcat un todo com completed", completed: false },
+  { id: uuidv4(), title: "Fer un servei de todos", completed: true },
 ];
 
 express()
@@ -21,8 +21,8 @@ express()
   .post("/", (req, res) => {
     const newTodo = {
       id: uuidv4(),
-      text: "No text present",
-      done: false,
+      title: "No title present",
+      completed: false,
       ...JSON.parse(req.body),
     };
     todos.push(newTodo);

@@ -1,0 +1,63 @@
+{
+  "id": "d24f1cab-bff1-5674-82bd-db3334aca6ed",
+  "name": "jsonplaceholder",
+  "timestamp": 1646909656602,
+  "requests": [
+    {
+      "collectionId": "d24f1cab-bff1-5674-82bd-db3334aca6ed",
+      "id": "25c82204-9560-66e7-612b-f79c303f9a02",
+      "name": "List Users",
+      "description": "",
+      "url": "https://jsonplaceholder.typicode.com/users",
+      "method": "GET",
+      "headers": "",
+      "data": "{\n  \"done\": true\n}\n",
+      "dataMode": "raw",
+      "timestamp": 0,
+      "responses": [],
+      "version": 2
+    },
+    {
+      "collectionId": "d24f1cab-bff1-5674-82bd-db3334aca6ed",
+      "id": "45d75e9f-21d1-ad98-fb97-1dcdcd1f41cd",
+      "name": "List Todos",
+      "description": "",
+      "url": "https://jsonplaceholder.typicode.com/todos",
+      "method": "GET",
+      "headers": "",
+      "data": "{\n  \"done\": true\n}\n",
+      "dataMode": "raw",
+      "timestamp": 0,
+      "responses": [],
+      "version": 2
+    },
+    {
+      "collectionId": "d24f1cab-bff1-5674-82bd-db3334aca6ed",
+      "id": "6e42f947-17b7-6bb4-0bf3-7e1b56b92b94",
+      "name": "Get User",
+      "description": "",
+      "url": "https://jsonplaceholder.typicode.com/users/1",
+      "method": "GET",
+      "headers": "",
+      "data": "{\n    \"userId\": 1,\n    \"id\": 1,\n    \"title\": \"delectus aut autem\",\n    \"completed\": true\n}",
+      "dataMode": "raw",
+      "timestamp": 0,
+      "responses": [],
+      "version": 2
+    },
+    {
+      "collectionId": "d24f1cab-bff1-5674-82bd-db3334aca6ed",
+      "id": "c08f32b8-67c9-cb6f-94e2-a875a9054691",
+      "name": "Get Todo",
+      "description": "",
+      "url": "https://jsonplaceholder.typicode.com/todos/1",
+      "method": "GET",
+      "headers": "",
+      "data": "{\n  \"done\": true\n}\n",
+      "dataMode": "raw",
+      "timestamp": 0,
+      "responses": [],
+      "version": 2
+    }
+  ]
+}
