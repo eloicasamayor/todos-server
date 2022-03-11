@@ -25,12 +25,15 @@ express()
     res.json(todos.filter((todo) => todo.id === req.params.postId)[0]);
   })
   .post("/todos/", (req, res) => {
+    const { title, body, completed } = JSON.parse(req.body);
+    const receivedTodo = { title, body, completed };
+
     const newTodo = {
       id: uuidv4(),
       title: "No title present",
       body: "",
       completed: false,
-      ...JSON.parse(req.body),
+      ...receivedTodo,
     };
     todos.push(newTodo);
     res.json(todos);
@@ -38,7 +41,11 @@ express()
   .post("/todos/:postId", (req, res) => {
     const index = todos.findIndex((todo) => todo.id === req.params.postId);
     if (index < 0) throw new Error("Not Found");
-    todos[index] = { ...todos[index], ...JSON.parse(req.body) };
+
+    const { title, body, completed } = JSON.parse(req.body);
+    const receivedTodo = { title, body, completed };
+
+    todos[index] = { ...todos[index], ...receivedTodo };
     res.json(todos);
   })
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
