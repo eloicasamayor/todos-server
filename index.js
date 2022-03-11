@@ -6,10 +6,16 @@ const todos = [
   {
     id: "ad1a81f5-c327-47dd-9c6b-e6c63f47e4ff",
     title: "Afegir un nou todo",
+    body: "",
     completed: false,
   },
-  { id: uuidv4(), title: "Marcat un todo com completed", completed: false },
-  { id: uuidv4(), title: "Fer un servei de todos", completed: true },
+  {
+    id: uuidv4(),
+    title: "Marcat un todo com completed",
+    body: "",
+    completed: false,
+  },
+  { id: uuidv4(), title: "Fer un servei de todos", body: "", completed: true },
 ];
 
 express()
@@ -22,6 +28,7 @@ express()
     const newTodo = {
       id: uuidv4(),
       title: "No title present",
+      body: "",
       completed: false,
       ...JSON.parse(req.body),
     };
