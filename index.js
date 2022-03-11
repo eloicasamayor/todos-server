@@ -20,11 +20,11 @@ const todos = [
 
 express()
   .use(express.text())
-  .get("/", (req, res) => res.json(todos))
-  .get("/:postId", (req, res) => {
+  .get("/todos/", (req, res) => res.json(todos))
+  .get("/todos/:postId", (req, res) => {
     res.json(todos.filter((todo) => todo.id === req.params.postId)[0]);
   })
-  .post("/", (req, res) => {
+  .post("/todos/", (req, res) => {
     const newTodo = {
       id: uuidv4(),
       title: "No title present",
@@ -35,7 +35,7 @@ express()
     todos.push(newTodo);
     res.json(todos);
   })
-  .post("/:postId", (req, res) => {
+  .post("/todos/:postId", (req, res) => {
     const index = todos.findIndex((todo) => todo.id === req.params.postId);
     if (index < 0) throw new Error("Not Found");
     todos[index] = { ...todos[index], ...JSON.parse(req.body) };
