@@ -6,46 +6,92 @@ const todos = [
   {
     id: "ad1a81f5-c327-47dd-9c6b-e6c63f47e4ff",
     title: "Afegir un nou todo",
-    body: "",
+    details: "",
     completed: false,
   },
   {
     id: uuidv4(),
     title: "Marcat un todo com completed",
-    body: "",
+    details: "",
     completed: false,
   },
-  { id: uuidv4(), title: "Fer un servei de todos", body: "", completed: true },
+  {
+    id: uuidv4(),
+    title: "Fer un servei de todos",
+    details: "",
+    completed: true,
+  },
 ];
 
 express()
   .use(express.text())
-  .get("/todos/", (req, res) => res.json(todos))
+  .get("/todos/", (req, res) => {
+    const offset = +(req.query.offset || 0);
+    const limit = +(req.query.limit || todos.length);
+
+    let result = todos;
+    if (isTrue(req.query.completed))
+      result = result.filter((todo) => todo.completed);
+    if (isFalse(req.query.completed))
+      result = result.filter((todo) => !todo.completed);
+    if (req.query.title)
+      result = result.filter((todo) =>
+        todo.title
+          .toLowerCase()
+          .includes(req.query.title.toLocaleLowerCase().trim())
+      );
+    if (req.query.details)
+      result = result.filter((todo) =>
+        todo.details
+          .toLowerCase()
+          .includes(req.query.details.toLocaleLowerCase().trim())
+      );
+
+    res.json(result.slice(offset, offset + limit));
+  })
   .get("/todos/:postId", (req, res) => {
     res.json(todos.filter((todo) => todo.id === req.params.postId)[0]);
   })
   .post("/todos/", (req, res) => {
-    const { title, body, completed } = JSON.parse(req.body);
-    const receivedTodo = { title, body, completed };
+    const { title, details, completed } = JSON.parse(req.body);
+    const receivedTodo = { title, details, completed };
 
     const newTodo = {
       id: uuidv4(),
       title: "No title present",
-      body: "",
+      details: "",
       completed: false,
       ...receivedTodo,
     };
     todos.push(newTodo);
-    res.json(todos);
+    res.json(newTodo);
   })
   .post("/todos/:postId", (req, res) => {
     const index = todos.findIndex((todo) => todo.id === req.params.postId);
     if (index < 0) throw new Error("Not Found");
 
-    const { title, body, completed } = JSON.parse(req.body);
-    const receivedTodo = { title, body, completed };
+    const { title, details, completed } = JSON.parse(req.body);
+    const receivedTodo = { title, details, completed };
 
     todos[index] = { ...todos[index], ...receivedTodo };
-    res.json(todos);
+    res.json(todos[index]);
+  })
+  .delete("/todos/:postId", (req, res) => {
+    const index = todos.findIndex((todo) => todo.id === req.params.postId);
+    if (index < 0) throw new Error("Not Found");
+    const deletedTodo = todos.splice(index, 1);
+    res.json(deletedTodo);
   })
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
+
+function isTrue(value) {
+  if (!value) return;
+  value = value.toLowerCase();
+  return value === "true" || value === "1" || value === "yes";
+}
+
+function isFalse(value) {
+  if (!value) return;
+  value = value.toLowerCase();
+  return value === "false" || value === "0" || value === "no";
+}
