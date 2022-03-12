@@ -5,6 +5,34 @@
   "requests": [
     {
       "collectionId": "d6b56ba0-400d-1817-43e9-a4e5e09659b5",
+      "id": "09c10fc5-592f-7f78-5347-b21cc52c8d04",
+      "name": "List not completed",
+      "description": "",
+      "url": "https://tc-todo-2022.herokuapp.com/todos?completed=false",
+      "method": "GET",
+      "headers": "",
+      "data": "{\n  \"title\": \"New TODO\"\n}",
+      "dataMode": "raw",
+      "timestamp": 0,
+      "responses": [],
+      "version": 2
+    },
+    {
+      "collectionId": "d6b56ba0-400d-1817-43e9-a4e5e09659b5",
+      "id": "109efad0-1c20-3550-9a6e-d869547e98ed",
+      "name": "Query details",
+      "description": "",
+      "url": "https://tc-todo-2022.herokuapp.com/todos?details=comen",
+      "method": "GET",
+      "headers": "",
+      "data": "{\n  \"title\": \"New TODO\"\n}",
+      "dataMode": "raw",
+      "timestamp": 0,
+      "responses": [],
+      "version": 2
+    },
+    {
+      "collectionId": "d6b56ba0-400d-1817-43e9-a4e5e09659b5",
       "id": "6174d4f2-299f-f915-f91b-90dcc89df64d",
       "name": "Mark pending",
       "description": "",
@@ -75,6 +103,34 @@
     },
     {
       "collectionId": "d6b56ba0-400d-1817-43e9-a4e5e09659b5",
+      "id": "cc25826f-83f4-8e21-e4e9-0cc4fac1f8f8",
+      "name": "Query Title",
+      "description": "",
+      "url": "https://tc-todo-2022.herokuapp.com/todos?title=mar",
+      "method": "GET",
+      "headers": "",
+      "data": "{\n  \"title\": \"New TODO\"\n}",
+      "dataMode": "raw",
+      "timestamp": 0,
+      "responses": [],
+      "version": 2
+    },
+    {
+      "collectionId": "d6b56ba0-400d-1817-43e9-a4e5e09659b5",
+      "id": "d86dac7b-6c99-f05e-2377-07ea251d3c8a",
+      "name": "List Paginated",
+      "description": "",
+      "url": "https://tc-todo-2022.herokuapp.com/todos?offset=1&limit=1",
+      "method": "GET",
+      "headers": "",
+      "data": "{\n  \"title\": \"New TODO\"\n}",
+      "dataMode": "raw",
+      "timestamp": 0,
+      "responses": [],
+      "version": 2
+    },
+    {
+      "collectionId": "d6b56ba0-400d-1817-43e9-a4e5e09659b5",
       "id": "df5fdf87-55a3-8033-06f7-83fec5a620f4",
       "name": "Add new todo",
       "description": "",
@@ -86,6 +142,34 @@
       "timestamp": 0,
       "version": 2,
       "time": 1647014692532
+    },
+    {
+      "collectionId": "d6b56ba0-400d-1817-43e9-a4e5e09659b5",
+      "id": "ec0c6c34-214f-0906-d223-332375bff084",
+      "name": "Delete todo",
+      "description": "",
+      "url": "https://tc-todo-2022.herokuapp.com/todos/ad1a81f5-c327-47dd-9c6b-e6c63f47e4ff",
+      "method": "DELETE",
+      "headers": "",
+      "data": "# ATENCIO!\n\nCanvia l'Id per un de teu.",
+      "dataMode": "raw",
+      "timestamp": 0,
+      "version": 2,
+      "time": 1647080388449
+    },
+    {
+      "collectionId": "d6b56ba0-400d-1817-43e9-a4e5e09659b5",
+      "id": "fdffc575-f820-8951-47fd-3874f0e75462",
+      "name": "List completed",
+      "description": "",
+      "url": "https://tc-todo-2022.herokuapp.com/todos?completed=true",
+      "method": "GET",
+      "headers": "",
+      "data": "{\n  \"title\": \"New TODO\"\n}",
+      "dataMode": "raw",
+      "timestamp": 0,
+      "responses": [],
+      "version": 2
     }
   ],
   "order": [
@@ -94,6 +178,12 @@
     "df5fdf87-55a3-8033-06f7-83fec5a620f4",
     "73c3eb51-9e12-0765-4e89-09306bc0a19b",
     "6174d4f2-299f-f915-f91b-90dcc89df64d",
-    "8edbbb6d-cdf1-3d70-f9f6-63a1e2be84c4"
+    "8edbbb6d-cdf1-3d70-f9f6-63a1e2be84c4",
+    "d86dac7b-6c99-f05e-2377-07ea251d3c8a",
+    "cc25826f-83f4-8e21-e4e9-0cc4fac1f8f8",
+    "109efad0-1c20-3550-9a6e-d869547e98ed",
+    "fdffc575-f820-8951-47fd-3874f0e75462",
+    "09c10fc5-592f-7f78-5347-b21cc52c8d04",
+    "ec0c6c34-214f-0906-d223-332375bff084"
   ]
 }
