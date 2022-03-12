@@ -6,13 +6,13 @@ const todos = [
   {
     id: "ad1a81f5-c327-47dd-9c6b-e6c63f47e4ff",
     title: "Afegir un nou todo",
-    details: "",
+    details: "Al començar ja en tenim, pero en volem més.",
     completed: false,
   },
   {
     id: uuidv4(),
     title: "Marcat un todo com completed",
-    details: "",
+    details: "Marca aquest todo com completat.",
     completed: false,
   },
   {
