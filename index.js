@@ -168,6 +168,13 @@ express()
 
   .delete("/todos/:id", (req, res, next) => {
     const { id } = req.params;
+    if (id === firstTodo.id)
+      return fail(
+        req,
+        res,
+        `Cannot delete the first todo`
+      );
+
     const index = todos.findIndex((t) => t.id === id);
     if (index < 0)
       return fail(
