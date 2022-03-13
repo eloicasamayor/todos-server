@@ -25,10 +25,56 @@ const todos = [
   },
 ];
 
+function fail(req, res, message) {
+  res
+    .status(400)
+    .header("Content-Type", "text/html; charset=utf-8")
+    .send(
+      `<!DOCTYPE html>
+  <html>
+  <head><title>Error</title></head>
+  <body>
+  <h1>Error</h1>
+  <pre>${req.method} ${req.originalUrl}</pre>
+  <p>${message}</p>
+  </body>
+  </html>`
+    )
+    .end();
+}
+
 express()
   .use(cors())
+  .use(express.json())
   .use(express.text())
-  .get("/todos/", (req, res) => {
+  .set("json spaces", 2)
+  .use((err, req, res, next) => {
+    console.error("x");
+    console.error(err.stack);
+    console.error("_");
+
+    res.header(
+      "Content-Type",
+      "text/html; charset=utf-8"
+    );
+    console.error("a");
+    res.status(500);
+    console.error("b");
+    res.send(`<!DOCTYPE html>
+      <html>
+      <head><title>Error</title></head>
+      <body>
+      <h1>Error</h1>
+      <p>${err.message}</p>
+      <pre>${err.stack}</pre>
+      </body>
+      </html>`);
+    console.error("c");
+    res.end();
+    console.error("c");
+  })
+
+  .get("/todos", (req, res) => {
     const offset = +(req.query.offset || 0);
     const limit = +(req.query.limit || todos.length);
 
@@ -44,7 +90,7 @@ express()
         todo.title
           .toLowerCase()
           .includes(
-            req.query.title.toLocaleLowerCase().trim()
+            req.query.title.toLowerCase().trim()
           )
       );
     if (req.query.details)
@@ -52,65 +98,93 @@ express()
         todo.details
           .toLowerCase()
           .includes(
-            req.query.details
-              .toLocaleLowerCase()
-              .trim()
+            req.query.details.toLowerCase().trim()
           )
       );
 
     res.json(result.slice(offset, offset + limit));
   })
-  .get("/todos/:postId", (req, res) => {
-    res.json(
-      todos.filter(
-        (todo) => todo.id === req.params.postId
-      )[0]
-    );
-  })
-  .post("/todos/", (req, res) => {
-    const { title, details, completed } = JSON.parse(
-      req.body
-    );
-    const receivedTodo = { title, details, completed };
 
-    const newTodo = {
+  .get("/todos/:id", (req, res, next) => {
+    const { id } = req.params;
+    const [todo] = todos.filter((t) => t.id === id);
+
+    if (!todo)
+      return fail(req, res, `Todo "${id}" not found`);
+    res.json(todo);
+  })
+
+  .post("/todos", (req, res, next) => {
+    const receivedTodo = parseBody(req.body);
+    if (receivedTodo.id)
+      return fail(
+        req,
+        res,
+        "Todo should not have an id"
+      );
+
+    const { id, title, details, completed } = {
       id: uuidv4(),
       title: "No title present",
       details: "",
       completed: false,
       ...receivedTodo,
     };
+
+    const newTodo = { id, title, details, completed };
     todos.push(newTodo);
     res.json(newTodo);
   })
-  .post("/todos/:postId", (req, res) => {
-    const index = todos.findIndex(
-      (todo) => todo.id === req.params.postId
-    );
-    if (index < 0) throw new Error("Not Found");
+  .post("/todos/:id", (req, res, next) => {
+    const { id } = req.params;
+    const index = todos.findIndex((t) => t.id === id);
+    if (index < 0)
+      return fail(
+        req,
+        res,
+        `Not Found todo with id "${id}"`
+      );
 
-    const { title, details, completed } = JSON.parse(
-      req.body
-    );
-    const receivedTodo = { title, details, completed };
+    const receivedTodo = parseBody(req.body);
+    if (receivedTodo.id && receivedTodo.id !== id)
+      return fail(
+        req,
+        res,
+        `Id mismatch: asked in the GET to update the todo with id "${id}" but the id in the body is "${receivedTodo.id}"`
+      );
 
-    todos[index] = {
+    const { title, details, completed } = {
       ...todos[index],
       ...receivedTodo,
     };
+
+    const newTodo = { id, title, details, completed };
+    todos[index] = newTodo;
     res.json(todos[index]);
   })
-  .delete("/todos/:postId", (req, res) => {
-    const index = todos.findIndex(
-      (todo) => todo.id === req.params.postId
-    );
-    if (index < 0) throw new Error("Not Found");
-    const deletedTodo = todos.splice(index, 1);
+
+  .delete("/todos/:id", (req, res, next) => {
+    const { id } = req.params;
+    const index = todos.findIndex((t) => t.id === id);
+    if (index < 0)
+      return fail(
+        req,
+        res,
+        `Not Found todo with id "${id}"`
+      );
+    const [deletedTodo] = todos.splice(index, 1);
     res.json(deletedTodo);
   })
+
   .listen(PORT, () =>
     console.log(`Listening on ${PORT}`)
   );
+
+function parseBody(body) {
+  if (typeof body === "string")
+    return JSON.parse(body);
+  return body;
+}
 
 function isTrue(value) {
   if (!value) return;
