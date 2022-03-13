@@ -3,14 +3,16 @@ const express = require("express");
 const cors = require("cors");
 const PORT = process.env.PORT || 5001;
 
+const firstTodo = {
+  id: "ad1a81f5-c327-47dd-9c6b-e6c63f47e4ff",
+  title: "Afegir un nou todo",
+  details:
+    "Al començar ja en tenim, pero en volem més.",
+  completed: false,
+};
+
 const todos = [
-  {
-    id: "ad1a81f5-c327-47dd-9c6b-e6c63f47e4ff",
-    title: "Afegir un nou todo",
-    details:
-      "Al començar ja en tenim, pero en volem més.",
-    completed: false,
-  },
+  { ...firstTodo },
   {
     id: uuidv4(),
     title: "Marcat un todo com completed",
@@ -123,15 +125,13 @@ express()
         "Todo should not have an id"
       );
 
-    const { id, title, details, completed } = {
+    const newTodo = cleanupTodo({
       id: uuidv4(),
       title: "No title present",
       details: "",
       completed: false,
       ...receivedTodo,
-    };
-
-    const newTodo = { id, title, details, completed };
+    });
     todos.push(newTodo);
     res.json(newTodo);
   })
@@ -153,14 +153,17 @@ express()
         `Id mismatch: asked in the GET to update the todo with id "${id}" but the id in the body is "${receivedTodo.id}"`
       );
 
-    const { title, details, completed } = {
+    const newTodo = cleanupTodo({
       ...todos[index],
       ...receivedTodo,
-    };
-
-    const newTodo = { id, title, details, completed };
+    });
     todos[index] = newTodo;
     res.json(todos[index]);
+  })
+
+  .delete("/todos", (req, res, next) => {
+    todos.length = [{ ...firstTodo }];
+    res.json(todos);
   })
 
   .delete("/todos/:id", (req, res, next) => {
@@ -204,4 +207,14 @@ function isFalse(value) {
     value === "0" ||
     value === "no"
   );
+}
+
+function cleanupTodo(todo) {
+  const { id, title, details, completed } = todo;
+  return {
+    id: `${id}`,
+    title: `${title}`,
+    details: `${details}`,
+    completed: !!completed,
+  };
 }

@@ -81,7 +81,7 @@
       "url": "https://tc-todo-2022.herokuapp.com/todos/ad1a81f5-c327-47dd-9c6b-e6c63f47e4ff",
       "method": "POST",
       "headers": "",
-      "data": "{\n  \"title\": \"This is the new title\",\n  \"body\": \"This is the new Body\"\n}\n",
+      "data": "{\n  \"title\": \"This is the new title\",\n  \"details\": \"This is the new Details\"\n}\n",
       "dataMode": "raw",
       "timestamp": 0,
       "responses": [],
