@@ -162,7 +162,8 @@ express()
   })
 
   .delete("/todos", (req, res, next) => {
-    todos.length = [{ ...firstTodo }];
+    todos.length = 0;
+    todos.push({ ...firstTodo });
     res.json(todos);
   })
 
