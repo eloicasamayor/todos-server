@@ -12,7 +12,6 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.15.2",
-    "heroku": "^7.60.1",
     "uuid": "^8.3.2"
   },
   "keywords": [
