@@ -5,9 +5,8 @@ const PORT = process.env.PORT || 5001;
 
 const firstTodo = {
   id: "ad1a81f5-c327-47dd-9c6b-e6c63f47e4ff",
-  title: "Afegir un nou todo",
-  details:
-    "Al començar ja en tenim, pero en volem més.",
+  title: "Create a new todo",
+  userid: 1,
   completed: false,
 };
 
@@ -15,14 +14,14 @@ const todos = [
   { ...firstTodo },
   {
     id: uuidv4(),
-    title: "Marcat un todo com completed",
-    details: "Marca aquest todo com completat.",
+    title: "Set todo as completed",
+    userid: 1,
     completed: false,
   },
   {
     id: uuidv4(),
-    title: "Fer un servei de todos",
-    details: "",
+    title: "Develop a todo list app",
+    userid: 2,
     completed: true,
   },
 ];
@@ -95,13 +94,9 @@ express()
             req.query.title.toLowerCase().trim()
           )
       );
-    if (req.query.details)
-      result = result.filter((todo) =>
-        todo.details
-          .toLowerCase()
-          .includes(
-            req.query.details.toLowerCase().trim()
-          )
+    if (req.query.userid)
+      result = result.forEach(
+        (todo) => (todo.userid = parseInt(todo.userid))
       );
 
     res.json(result.slice(offset, offset + limit));
@@ -128,7 +123,7 @@ express()
     const newTodo = cleanupTodo({
       id: uuidv4(),
       title: "No title present",
-      details: "",
+      userid: 0,
       completed: false,
       ...receivedTodo,
     });
@@ -218,11 +213,11 @@ function isFalse(value) {
 }
 
 function cleanupTodo(todo) {
-  const { id, title, details, completed } = todo;
+  const { id, title, userid, completed } = todo;
   return {
     id: `${id}`,
     title: `${title}`,
-    details: `${details}`,
+    userid: userid,
     completed: !!completed,
   };
 }
