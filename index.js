@@ -5,24 +5,48 @@ const PORT = process.env.PORT || 5001;
 
 const firstTodo = {
   id: "ad1a81f5-c327-47dd-9c6b-e6c63f47e4ff",
-  title: "Create a new todo",
-  userid: 1,
-  completed: false,
+  title: "Create a frontend developer job offer",
+  userid: 3,
+  completed: true,
 };
 
 const todos = [
   { ...firstTodo },
   {
     id: uuidv4(),
-    title: "Set todo as completed",
-    userid: 1,
+    title: "send the job offer to developers",
+    userid: 3,
+    completed: true,
+  },
+  {
+    id: uuidv4(),
+    title: "develop an edit-todos page",
+    userid: 2,
+    completed: true,
+  },
+  {
+    id: uuidv4(),
+    title: "delete a todo",
+    userid: 2,
+    completed: true,
+  },
+  {
+    id: uuidv4(),
+    title: "login page and auth logic",
+    userid: 2,
+    completed: true,
+  },
+  {
+    id: uuidv4(),
+    title: "clone the repository to see the code",
+    userid: 2,
     completed: false,
   },
   {
     id: uuidv4(),
-    title: "Develop a todo list app",
+    title: "check the app and give feedback",
     userid: 2,
-    completed: true,
+    completed: false,
   },
 ];
 
