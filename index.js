@@ -27,8 +27,8 @@ const todos = [
   {
     id: uuidv4(),
     title: "delete a todo",
-    userid: 2,
-    completed: true,
+    userid: 1,
+    completed: false,
   },
   {
     id: uuidv4(),
@@ -38,14 +38,20 @@ const todos = [
   },
   {
     id: uuidv4(),
+    title: "deployment",
+    userid: 1,
+    completed: true,
+  },
+  {
+    id: uuidv4(),
     title: "clone the repository to see the code",
-    userid: 2,
+    userid: 3,
     completed: false,
   },
   {
     id: uuidv4(),
     title: "check the app and give feedback",
-    userid: 2,
+    userid: 3,
     completed: false,
   },
 ];
